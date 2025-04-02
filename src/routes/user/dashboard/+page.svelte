@@ -2,6 +2,8 @@
     import Header from '../../../lib/components/Header.svelte';
     import { onMount } from 'svelte';
     import { get_user } from '../../../services/api/user';
+    import { goto } from '$app/navigation';
+    import { clearToken } from '../../../services/api/store';
 
     import { Home, User, Mail, BadgeCheck } from 'lucide-svelte';
 
@@ -17,17 +19,30 @@
     let error = '';
   
     async function fetchUser() {
-      try {
-        const response = await get_user();
-        user = response; // ✅ Use `response` directly
-        console.log('Fetched user:', user);
-      } catch (err) {
-        error = 'Failed to load user information.';
-        console.error('Error fetching user:', err);
-      }
+  try {
+    // clearToken();
+
+    const response = await get_user();
+    user = response;
+    console.log('Fetched user:', user);
+    if(user.error){
+      // failed to get user info
+    console.error('Error fetching user:', user.error);
+
+      clearToken();
+      goto('/user/auth/login');
+      error = 'Failed to load user information.';
     }
-  
-    onMount(fetchUser);
+    
+  } catch (err) {
+    clearToken();
+    goto('/user/auth/login');
+    error = 'Failed to load user information.';
+    console.error('Error fetching user:', err);
+  }
+}
+
+onMount(fetchUser);
   </script>
   
   <Header title="Dashboard" />

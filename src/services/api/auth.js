@@ -26,7 +26,7 @@ export async function login(email, password) {
 		console.log(response); // Logs full response in the console
 
 		// Alert the JSON stringified response
-		alert(JSON.stringify(response.data, null, 2));
+		// alert(JSON.stringify(response.data, null, 2));
 
 		if (response.access_token) {
 			saveToken(response.access_token);
@@ -35,8 +35,9 @@ export async function login(email, password) {
 		return response.data; // Contains access_token and user info
 	} catch (error) {
 		console.error("Login failed:", error);
-		alert("Login failed: " + (error.response?.data?.message || error.message));
-		return null;
+		// alert(error.message)
+		// alert("Login failed: " + (error.response?.data?.message || error.message));
+		return  error;
 	}
 }
 

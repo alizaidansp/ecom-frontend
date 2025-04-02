@@ -2,9 +2,9 @@ import { getToken } from './store';
 import { goto } from '$app/navigation';
 
 
-const BASE_URL = `${window.location.protocol}//${window.location.hostname}/api/v1`;
+// const BASE_URL = `${window.location.protocol}//${window.location.hostname}/api/v1`;
 
-// const BASE_URL ='http://localhost:8081/api/v1';
+const BASE_URL ='http://localhost:8081/api/v1';
 
 /**
  * Generic API Request Helper
